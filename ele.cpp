@@ -50,6 +50,7 @@ void ShExecute(LPCWSTR pVerb, LPCWSTR pPath, LPCWSTR pParam, LPCWSTR pDir, BOOL 
     sei.lpDirectory = pDir;
     sei.nShow = SW_SHOW;
     BOOL bRet = ShellExecuteExW(&sei);
+    Check(bRet);
 
     if (bWaitExit && sei.hProcess != NULL)
     {
@@ -76,7 +77,7 @@ int Ele()
         PROCESS_INFORMATION pi;
         SecureZeroMemory(&si, sizeof(si));
         si.cb = sizeof(si);
-        CreateProcessW(
+        BOOL bRet = CreateProcessW(
             NULL,
             pData->szCommandLine,
             NULL,
@@ -88,6 +89,7 @@ int Ele()
             &si,
             &pi
             );
+        Check(bRet);
     }
     else if (!*lpCmd)
     {
